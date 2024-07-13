@@ -11,7 +11,7 @@ const PostList = () => {
     })
 
     if(isPending) return <div className="h-full flex justify-center items-center">Loading...</div>
-
+console.log(data)
     return ( 
         <div>
             <h2 className="text-4xl font-bold my-5 text-cyan-700">
@@ -25,6 +25,7 @@ const PostList = () => {
                             <h3 className="text-lg font-medium mb-2">{post.title}</h3>
                         </Link>
                         <p className="text-gray-500">{post.description}</p>
+                        <p className="text-gray-500">{post.category.name}</p>
                     </div>
                 ))}
             </div>

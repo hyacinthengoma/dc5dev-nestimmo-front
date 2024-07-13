@@ -5,6 +5,7 @@ import { useToast } from "@/components/ui/use-toast";
 import { deletePost, fetchPostById } from "@/services/post.service";
 import { useMutation, useQuery } from "@tanstack/react-query";
 import { useParams, useRouter } from "next/navigation";
+import DrawerUpdate from "@/components/post/DrawerUpdate";
 
 type PostDetailParams = {
     id: string;
@@ -36,16 +37,22 @@ const PostDetail = () => {
     }
 
     if(isPending) return <div className="h-full flex justify-center items-center">Loading...</div>
-    
-    return ( 
+    console.log(data)
+    return (
         <div>
             <h1>{data.title}</h1>
             <p>{data.description}</p>
-
+            <DrawerUpdate
+                id={id}
+                title={data.title}
+                description={data.description}
+                category={data.category.id}
+            />
             <DialogConfirmDelete 
                 handleDelete={handleDelete} 
                 isPending={mutation.isPending}
             />
+
         </div>
      );
 }

@@ -1,4 +1,4 @@
-import { PostCreateDTO } from "@/types/post";
+import {PostCreateDTO, UpdateCreateDTO} from "@/types/post";
 import { POST_ENDPOINT } from "@/utils/constants";
 
 export const fetchAllPosts = async () => {
@@ -16,6 +16,18 @@ export const fetchPostById = async (id: string) => {
 export const createPost = async (createPostDTO: PostCreateDTO) => {
     const response = await fetch(POST_ENDPOINT, {
         method: 'POST',
+        headers: {
+            'Content-Type': 'application/json'
+        },
+        body: JSON.stringify(createPostDTO)
+    });
+    const data = await response.json();
+    return data;
+}
+
+export const updatePost = async (createPostDTO: UpdateCreateDTO) => {
+    const response = await fetch(`${POST_ENDPOINT}/${createPostDTO.id}`, {
+        method: 'PATCH',
         headers: {
             'Content-Type': 'application/json'
         },

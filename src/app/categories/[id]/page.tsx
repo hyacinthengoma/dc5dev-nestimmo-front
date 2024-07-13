@@ -6,6 +6,8 @@ import { deletePost, fetchPostById } from "@/services/post.service";
 import { useMutation, useQuery } from "@tanstack/react-query";
 import { useParams, useRouter } from "next/navigation";
 import {deleteCategory, fetchCategoryById} from "@/services/category.service";
+import DrawerUpdate from "@/components/post/DrawerUpdate";
+import DrawerUpdateCategory from "@/components/category/DrawerUpdatecategory";
 
 type CategoryDetailParams = {
     id: string;
@@ -37,11 +39,14 @@ const CategoryDetail = () => {
     }
 
     if(isPending) return <div className="h-full flex justify-center items-center">Loading...</div>
-
+console.log(data)
     return (
         <div>
-            <h1>{data.title}</h1>
-
+            <h1>{data.name}</h1>
+            <DrawerUpdateCategory
+                id={id}
+                name={data.name}
+            />
             <DialogConfirmDelete
                 handleDelete={handleDelete}
                 isPending={mutation.isPending}
