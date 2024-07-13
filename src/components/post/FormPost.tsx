@@ -4,7 +4,9 @@ import { Input } from "@/components/ui/input"
 import { Textarea } from "@/components/ui/textarea"
 import { Button } from "@/components/ui/button"
 import { createPost } from "@/services/post.service"
-import { useMutation, useQueryClient } from "@tanstack/react-query"
+import {useMutation, useQuery, useQueryClient} from "@tanstack/react-query"
+import {fetchAllCategory} from "@/services/category.service";
+import {Select, SelectContent, SelectItem, SelectTrigger, SelectValue} from "@/components/ui/select";
 
 type FormPostProps = {
     setOpen: (open: boolean) => void;
@@ -22,32 +24,51 @@ const FormPost = ({ setOpen } : FormPostProps) => {
             setOpen(false);
         },
     });
+    const { isPending, error, data } = useQuery({
+        queryKey: ['getAllCategory'],
+        queryFn: fetchAllCategory
+    })
 
     const handleSubmit = (e: React.FormEvent<HTMLFormElement>) => {
         e.preventDefault();
 
         const createPostDTO = {
             title: e.target.title.value,
-            description: e.target.description.value
+            description: e.target.description.value,
+            category: e.target.categorie.value
         }
 
         mutation.mutate(createPostDTO);
     }
 
-    return ( 
+    return (
         <form onSubmit={handleSubmit}>
             <div className="mb-2">
-                <Input 
-                    type="text" 
-                    placeholder="Post title" 
+                <Input
+                    type="text"
+                    placeholder="Post title"
                     name="title"
                 />
             </div>
             <div className="mb-2">
-                <Textarea 
+                <Textarea
                     placeholder="Post description"
                     name="description"
                 />
+            </div>
+            <div className="mb-2">
+                <Select name="categorie" required={true}>
+                    <SelectTrigger>
+                        <SelectValue placeholder="Select a category"/>
+                    </SelectTrigger>
+                    <SelectContent>
+                        {data && data.map((category: any) => (
+                            <SelectItem key={category.id} value={category.id}>
+                                {category.name}
+                            </SelectItem>
+                        ))}
+                    </SelectContent>
+                </Select>
             </div>
             <div>
                 <Button type="submit" className="w-full" disabled={mutation.isPending}>
@@ -56,7 +77,7 @@ const FormPost = ({ setOpen } : FormPostProps) => {
                 </Button>
             </div>
         </form>
-     );
+    );
 }
- 
+
 export default FormPost;

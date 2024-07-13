@@ -12,7 +12,7 @@ import {
 } from "@/components/ui/drawer"
 
 import { Button } from "@/components/ui/button";
-import FormPost from "./FormPost";
+import FormPost from "./FormCategory";
 import { useState } from "react";
 
 const DrawerPost = () => {
@@ -22,12 +22,12 @@ const DrawerPost = () => {
         <Drawer open={open} onOpenChange={setOpen}>
             <DrawerTrigger asChild>
                 <Button variant="default">
-                    Create new post
+                    Create new category
                 </Button>
             </DrawerTrigger>
             <DrawerContent>
                 <DrawerHeader>
-                    <DrawerTitle className="text-center">Ajouter un post</DrawerTitle>
+                    <DrawerTitle className="text-center">Ajouter une category</DrawerTitle>
                     <DrawerDescription className="text-center">Renseignez l'ensemble des champs.</DrawerDescription>
                     <FormPost setOpen={setOpen} />
                 </DrawerHeader>
