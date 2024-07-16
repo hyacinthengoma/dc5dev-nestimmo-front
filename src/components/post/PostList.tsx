@@ -23,9 +23,10 @@ console.log(data)
                     <div key={post.id} className="bg-white rounded-lg shadow-md p-4">
                         <Link href={`/posts/${post.id}`}>
                             <h3 className="text-lg font-medium mb-2">{post.title}</h3>
-                        </Link>
+
                         <p className="text-gray-500">{post.description}</p>
                         <p className="text-gray-500">{post.category.name}</p>
+                        </Link>
                     </div>
                 ))}
             </div>
